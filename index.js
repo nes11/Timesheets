@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { createTimesheet, getTimesheets } = require('./timesheets');
+const { createTimesheet, getTimesheets, markTimesheetComplete } = require('./timesheets');
 
 const isValidDate = (date) => !isNaN(date);
 
@@ -14,12 +14,26 @@ app.get('/', (req, res) => {
 
 app.post('/createTimesheet', (req, res) => {
   const time = new Date(req.body.time);
-  console.log(time)
   if (isValidDate(time)) {
-    createTimesheet({ time });
-    res.send(`timesheet created with time ${time}`);
+    const newTimesheet = createTimesheet({
+      name: req.body.name,
+      time,
+      description: req.body.description,
+    });
+    res.send(newTimesheet);
   } else {
     res.send(`Timesheet was not created, ${req.body.time} is not a valid time.`)
+  }
+});
+
+app.post('/markTimesheetComplete/:id', (req, res) => {
+  try {
+    const id = req.params.id;
+    const completedTimesheet = markTimesheetComplete({ id });
+    res.send(completedTimesheet);
+  } catch(err) {
+    console.log(err.message)
+    res.status(400).send({ error: err.message })
   }
 });
 
