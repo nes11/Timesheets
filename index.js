@@ -25,7 +25,7 @@ app.post('/createTimesheet', (req, res) => {
     });
     res.send(newTimesheet);
   } else {
-    res.send(`Timesheet was not created, ${req.body.time} is not a valid time.`)
+    res.send(`Timesheet was not created, ${req.body.time} is not a valid time.`);
   }
 });
 
@@ -39,8 +39,8 @@ app.post('/markTimesheetComplete/:id', (req, res) => {
     res.send(completedTimesheet);
   } catch(err) {
     const status = err.message === 'incorrect password' ? 401 : 400;
-    console.log(err.message)
-    res.status(status).send({ error: err.message })
+    console.log(err.message);
+    res.status(status).send({ error: err.message });
   }
 });
 
