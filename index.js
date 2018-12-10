@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 
 
 const isValidDate = (date) => !isNaN(date);
+const hash = '$2a$12$Yk.Bosx2iIrt2pQp3pzBCuPPt25IsPiq/w.2uPS4n7T4QPRxR.vYC';
 
 const app = express();
 
@@ -29,19 +30,17 @@ app.post('/createTimesheet', (req, res) => {
 });
 
 app.post('/markTimesheetComplete/:id', (req, res) => {
-  const hash = '$2a$12$Yk.Bosx2iIrt2pQp3pzBCuPPt25IsPiq/w.2uPS4n7T4QPRxR.vYC';
-  if (bcrypt.compareSync(req.body.password, hash)) {
-    try {
-      const id = req.params.id;
-      const completedTimesheet = markTimesheetComplete({ id });
-      res.send(completedTimesheet);
-    } catch(err) {
-      console.log(err.message)
-      res.status(400).send({ error: err.message })
+  try {
+    if (!bcrypt.compareSync(req.body.password, hash)) {
+      throw Error('incorrect password');
     }
-  } else {
-    res.status(401).send({ error: 'incorrect password' })
-    console.log('incorrect password');
+    const id = req.params.id;
+    const completedTimesheet = markTimesheetComplete({ id });
+    res.send(completedTimesheet);
+  } catch(err) {
+    const status = err.message === 'incorrect password' ? 401 : 400;
+    console.log(err.message)
+    res.status(status).send({ error: err.message })
   }
 });
 
