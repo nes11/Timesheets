@@ -1,6 +1,5 @@
 const uuid = require('uuid/v4');
 const timesheetSaver = require('./timesheet-saver.js');
-const timesheets = [];
 
 const createTimesheet = ({ name, time, description }) => {
   const existingTimesheets = timesheetSaver.readJson();
@@ -13,13 +12,14 @@ const createTimesheet = ({ name, time, description }) => {
 
 const getTimesheets = () => timesheetSaver.readJson();
 
-//change this to new system timesheetSaver
 const markTimesheetComplete = ({ id }) => {
-  const completedTimesheet = timesheets.find(obj => obj.id === id);
+  const existingTimesheets = timesheetSaver.readJson();
+  const completedTimesheet = existingTimesheets.find(obj => obj.id === id);
   if (!completedTimesheet) {
     throw Error(`timesheet not found for id ${id}`);
   }
   completedTimesheet.status = 'completed';
+  timesheetSaver.saveJson(existingTimesheets);
   return completedTimesheet;
 };
 

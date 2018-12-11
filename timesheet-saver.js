@@ -3,7 +3,7 @@ const path = require('path');
 const timesheetFileName = 'timesheets-data.json';
 
 const saveJson = (json) => {
-  const data = JSON.stringify(json);
+  const data = JSON.stringify(json, null, 2);
   fs.writeFileSync(path.join(__dirname, timesheetFileName), data);
 };
 
