@@ -36,8 +36,13 @@ describe('sending a POST req to /createTimesheet', () => {
       description: 'blah, blah'
     };
     return axios.post('http://localhost:4001/createTimesheet', postBody)
-      .then(() => {
-        // do some assertions on the createtimesheet response
+      .then((res) => {
+        expect(res.data).to.be.an('object');
+        expect(res.data).to.have.keys('id', 'name', 'time', 'description', 'status');
+        expect(res.data.status).to.equal('active');
+        expect(res.data.name).to.equal(postBody.name);
+        expect(Date(res.data.time)).to.equal(Date(postBody.time));
+        expect(res.data.description).to.equal(postBody.description);
         return axios.get('http://localhost:4001/')
           .then((res) => {
             res.data.forEach((timesheet) =>{
@@ -81,6 +86,7 @@ describe('sending a POST req to /markTimesheetComplete/:id', () => {
   it('should return an error400 and a still active timesheet when given wrong ID', () => {
     return axios.post('http://localhost:4001/createTimesheet', postBody)
       .then((res1) => {
+        const createdTimesheetId = res1.data.id;
         const password = {
           password: 'ham sandwich'
         };
@@ -88,7 +94,11 @@ describe('sending a POST req to /markTimesheetComplete/:id', () => {
           .then((res2) => {
             expect(res2.status).to.equal(400);
             expect(res2.data.error).to.equal('timesheet not found for id invalidId');
-            expect(res1.data.status).to.equal('active');
+            return axios.get('http://localhost:4001/')
+              .then((res) => {
+                const timesheet = res.data.find((element) => element.id === createdTimesheetId);
+                expect(timesheet.status).to.equal('active');
+              });
           });
       });
   });
@@ -96,14 +106,19 @@ describe('sending a POST req to /markTimesheetComplete/:id', () => {
   it('should return an error401 and a still active timesheet when given wrong password', () => {
     return axios.post('http://localhost:4001/createTimesheet', postBody)
       .then(res1 => {
+        const createdTimesheetId = res1.data.id;
         const password = {
           password: 'cheese sandwich'
         };
-        return axios.post(`http://localhost:4001/markTimesheetComplete/${res1.data.id}`, password, { validateStatus: false })
+        return axios.post(`http://localhost:4001/markTimesheetComplete/${createdTimesheetId}`, password, { validateStatus: false })
           .then((res2) => {
             expect(res2.status).to.equal(401);
             expect(res2.data.error).to.equal('incorrect password');
-            expect(res1.data.status).to.equal('active');
+            return axios.get('http://localhost:4001/')
+              .then((res) => {
+                const timesheet = res.data.find((element) => element.id === createdTimesheetId);
+                expect(timesheet.status).to.equal('active');
+              });
           });
       });
   });
