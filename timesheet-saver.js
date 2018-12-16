@@ -8,8 +8,14 @@ const saveJson = (json) => {
 };
 
 const readJson = () => {
-  const data = fs.readFileSync(path.join(__dirname, timesheetFileName));
-  return JSON.parse(data);
+  try {
+    const data = fs.readFileSync(path.join(__dirname, timesheetFileName));
+    return JSON.parse(data);
+  } catch (error) {
+    saveJson([]);
+    const data = fs.readFileSync(path.join(__dirname, timesheetFileName));
+    return JSON.parse(data);
+  }
 };
 
 module.exports = {
