@@ -15,6 +15,11 @@ app.get('/', (req, res) => {
   res.send(getTimesheets());
 });
 
+app.get('/activeTimesheets', (req, res) => {
+  const activeTimesheets = getTimesheets().filter((el) => el.status === 'active');
+  res.send(activeTimesheets);
+});
+
 app.post('/createTimesheet', (req, res) => {
   const time = new Date(req.body.time);
   if (isValidDate(time)) {
