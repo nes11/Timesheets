@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { createTimesheet, getTimesheets, markTimesheetComplete } = require('./timesheets');
+const { createTimesheet, getTimesheets, markTimesheetComplete, getActiveTimesheets } = require('./timesheets');
 const bcrypt = require('bcryptjs');
 
 
@@ -16,8 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/activeTimesheets', (req, res) => {
-  const activeTimesheets = getTimesheets().filter((el) => el.status === 'active');
-  res.send(activeTimesheets);
+  res.send(getActiveTimesheets());
 });
 
 app.post('/createTimesheet', (req, res) => {
