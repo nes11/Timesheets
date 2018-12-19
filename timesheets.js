@@ -25,9 +25,16 @@ const markTimesheetComplete = ({ id }) => {
   return completedTimesheet;
 };
 
+const deleteTimesheet = ({ id }) => {
+  const existingTimesheets = getTimesheets();
+  const updatedTimesheets = existingTimesheets.filter((obj) => obj.id !== id );
+  timesheetSaver.saveJson(updatedTimesheets);
+};
+
 module.exports = {
   createTimesheet,
   getTimesheets,
   markTimesheetComplete,
   getActiveTimesheets,
+  deleteTimesheet,
 };

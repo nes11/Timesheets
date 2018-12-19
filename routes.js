@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { createTimesheet, getTimesheets, markTimesheetComplete, getActiveTimesheets } = require('./timesheets');
+const { createTimesheet, getTimesheets, markTimesheetComplete, getActiveTimesheets, deleteTimesheet } = require('./timesheets');
 const bcrypt = require('bcryptjs');
 
 
@@ -46,6 +46,12 @@ app.post('/markTimesheetComplete/:id', (req, res) => {
     console.log(err.message);
     res.status(status).send({ error: err.message });
   }
+});
+
+app.post('/deleteTimesheet/:id', (req, res) => {
+  const id = req.params.id;
+  const updatedListOfTimesheets = deleteTimesheet({ id });
+  res.send(`Timesheet ${id} has been deleted`);
 });
 
 module.exports = {
