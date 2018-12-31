@@ -1,17 +1,6 @@
 const uuid = require('uuid/v4');
 const _ = require('lodash');
-const timesheetSaver = require('./timesheet-saver.js');
 const { saveTimesheet,readTimesheets, completeTimesheetById, deleteTimesheetById } = require('./database.js');
-
-
-// const createTimesheet = ({ name, time, description }) => {
-//   const existingTimesheets = getTimesheets();
-//   const id = uuid();
-//   const newTimesheet = { id, name, time, description, status: 'active' };
-//   const updatedTimesheets = existingTimesheets.concat(newTimesheet);
-//   timesheetSaver.saveJson(updatedTimesheets);
-//   return newTimesheet;
-// };
 
 const createTimesheet = async ({ name, time, description }) => {
   const id = uuid();
@@ -20,11 +9,12 @@ const createTimesheet = async ({ name, time, description }) => {
   return _.omit(newTimesheet, ['_id']);
 };
 
-//const getTimesheets = () => timesheetSaver.readJson();
-const getTimesheets = async () => await readTimesheets();
+const getTimesheets = () => readTimesheets();
 
-const getActiveTimesheets = async () => await getTimesheets()
-  .then(timesheets => timesheets.filter((el) => el.status === 'active'));
+const getActiveTimesheets = async () => {
+  const timesheets = await getTimesheets();
+  return timesheets.filter((el) => el.status === 'active');
+};
 
 const markTimesheetComplete = async ({ id }) => {
   const completedTimesheet = await completeTimesheetById(id);
@@ -34,9 +24,7 @@ const markTimesheetComplete = async ({ id }) => {
   return _.omit(completedTimesheet, ['_id']);
 };
 
-const deleteTimesheet = async ({ id }) => {
-  await deleteTimesheetById(id);
-};
+const deleteTimesheet = ({ id }) => deleteTimesheetById(id);
 
 module.exports = {
   createTimesheet,
