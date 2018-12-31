@@ -11,18 +11,18 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.send(getTimesheets());
+app.get('/', async (req, res) => {
+  res.send(await getTimesheets());
 });
 
-app.get('/activeTimesheets', (req, res) => {
-  res.send(getActiveTimesheets());
+app.get('/activeTimesheets', async (req, res) => {
+  res.send(await getActiveTimesheets());
 });
 
-app.post('/createTimesheet', (req, res) => {
+app.post('/createTimesheet', async (req, res) => {
   const time = new Date(req.body.time);
   if (isValidDate(time)) {
-    const newTimesheet = createTimesheet({
+    const newTimesheet = await createTimesheet({
       name: req.body.name,
       time,
       description: req.body.description,
@@ -33,13 +33,13 @@ app.post('/createTimesheet', (req, res) => {
   }
 });
 
-app.post('/markTimesheetComplete/:id', (req, res) => {
+app.post('/markTimesheetComplete/:id', async (req, res) => {
   try {
     if (!bcrypt.compareSync(req.body.password, hash)) {
       throw Error('incorrect password');
     }
     const id = req.params.id;
-    const completedTimesheet = markTimesheetComplete({ id });
+    const completedTimesheet = await markTimesheetComplete({ id });
     res.send(completedTimesheet);
   } catch(err) {
     const status = err.message === 'incorrect password' ? 401 : 400;
@@ -48,9 +48,9 @@ app.post('/markTimesheetComplete/:id', (req, res) => {
   }
 });
 
-app.post('/deleteTimesheet/:id', (req, res) => {
+app.post('/deleteTimesheet/:id', async (req, res) => {
   const id = req.params.id;
-  const updatedListOfTimesheets = deleteTimesheet({ id });
+  await deleteTimesheet({ id });
   res.send(`Timesheet ${id} has been deleted`);
 });
 

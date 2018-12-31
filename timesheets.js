@@ -1,34 +1,41 @@
 const uuid = require('uuid/v4');
+const _ = require('lodash');
 const timesheetSaver = require('./timesheet-saver.js');
+const { saveTimesheet,readTimesheets, completeTimesheetById, deleteTimesheetById } = require('./database.js');
 
-const createTimesheet = ({ name, time, description }) => {
-  const existingTimesheets = getTimesheets();
+
+// const createTimesheet = ({ name, time, description }) => {
+//   const existingTimesheets = getTimesheets();
+//   const id = uuid();
+//   const newTimesheet = { id, name, time, description, status: 'active' };
+//   const updatedTimesheets = existingTimesheets.concat(newTimesheet);
+//   timesheetSaver.saveJson(updatedTimesheets);
+//   return newTimesheet;
+// };
+
+const createTimesheet = async ({ name, time, description }) => {
   const id = uuid();
   const newTimesheet = { id, name, time, description, status: 'active' };
-  const updatedTimesheets = existingTimesheets.concat(newTimesheet);
-  timesheetSaver.saveJson(updatedTimesheets);
-  return newTimesheet;
+  await saveTimesheet(newTimesheet);
+  return _.omit(newTimesheet, ['_id']);
 };
 
-const getTimesheets = () => timesheetSaver.readJson();
+//const getTimesheets = () => timesheetSaver.readJson();
+const getTimesheets = async () => await readTimesheets();
 
-const getActiveTimesheets = () => getTimesheets().filter((el) => el.status === 'active');
+const getActiveTimesheets = async () => await getTimesheets()
+  .then(timesheets => timesheets.filter((el) => el.status === 'active'));
 
-const markTimesheetComplete = ({ id }) => {
-  const existingTimesheets = getTimesheets();
-  const completedTimesheet = existingTimesheets.find(obj => obj.id === id);
+const markTimesheetComplete = async ({ id }) => {
+  const completedTimesheet = await completeTimesheetById(id);
   if (!completedTimesheet) {
     throw Error(`timesheet not found for id ${id}`);
   }
-  completedTimesheet.status = 'completed';
-  timesheetSaver.saveJson(existingTimesheets);
-  return completedTimesheet;
+  return _.omit(completedTimesheet, ['_id']);
 };
 
-const deleteTimesheet = ({ id }) => {
-  const existingTimesheets = getTimesheets();
-  const updatedTimesheets = existingTimesheets.filter((obj) => obj.id !== id );
-  timesheetSaver.saveJson(updatedTimesheets);
+const deleteTimesheet = async ({ id }) => {
+  await deleteTimesheetById(id);
 };
 
 module.exports = {
