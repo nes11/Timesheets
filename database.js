@@ -1,10 +1,10 @@
-const { MongoClient, ObjectId } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const url = 'mongodb://localhost:27017';
 
 const saveTimesheet = async (timesheet) => {
   try {
     const client = await MongoClient.connect(url);
-    const result = await client
+    await client
       .db('myTimesheetDatabase')
       .collection('myTimesheetCollection')
       .insertOne(timesheet);
@@ -32,7 +32,11 @@ const completeTimesheetById = async (timesheetId) => {
     const client = await MongoClient.connect(url);
     const db = client.db('myTimesheetDatabase');
     const myTimesheetCollection = db.collection('myTimesheetCollection');
-    const result = await myTimesheetCollection.findOneAndUpdate({ id: timesheetId }, { $set: { status: 'completed' } }, {returnOriginal: false});
+    const result = await myTimesheetCollection.findOneAndUpdate(
+      { id: timesheetId },
+      { $set: { status: 'completed' } },
+      {returnOriginal: false}
+    );
     client.close();
     return result.value;
   } catch(err) {

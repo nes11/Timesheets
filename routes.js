@@ -49,9 +49,18 @@ app.post('/markTimesheetComplete/:id', async (req, res) => {
 });
 
 app.post('/deleteTimesheet/:id', async (req, res) => {
-  const id = req.params.id;
-  await deleteTimesheet({ id });
-  res.send(`Timesheet ${id} has been deleted`);
+  try {
+    if (!bcrypt.compareSync(req.body.password, hash)) {
+      throw Error('incorrect password');
+    }
+    const id = req.params.id;
+    await deleteTimesheet({ id });
+    res.send(`Timesheet ${id} has been deleted`);
+  } catch(err) {
+    const status = err.message === 'incorrect password' ? 401 : 400;
+    console.log(err.message);
+    res.status(status).send({ error: err.message });
+  }
 });
 
 module.exports = {
