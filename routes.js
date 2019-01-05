@@ -63,6 +63,22 @@ app.post('/deleteTimesheet/:id', async (req, res) => {
   }
 });
 
+app.get('/ui', async (req, res) => {
+  res.send(`
+      <html>
+        <head>
+          <title>My Timesheet App</title>
+        </head>
+        <body>
+          <div id="root"></div>
+          <script src="/assets/bundle.js"></script>
+        </body>
+      </html>
+      `);
+});
+
+app.use('/assets', express.static('assets'));
+
 module.exports = {
   app,
 };

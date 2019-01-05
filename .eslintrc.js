@@ -5,11 +5,20 @@ module.exports = {
         "es6": true,
         "mocha": true
     },
+    "plugins": [
+        "react"
+    ],
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2018
+      "ecmaVersion": 2018,
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "sourceType": "module"
     },
     "rules": {
+      "no-console": [2, { "allow": ["info", "error"] }],
+        "react/jsx-uses-react": 1,
         "indent": [
             "error",
             2
