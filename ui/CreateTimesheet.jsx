@@ -4,10 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 
 class CreateTimesheet extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   createTimesheet() {
     const timesheet = {
       name: 'Lesson 3',
