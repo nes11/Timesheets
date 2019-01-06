@@ -140,23 +140,25 @@ describe('sending a GET req to /activeTimesheets', () => {
 });
 
 describe('sending a POST req to /deleteTimesheet/:id', () => {
+  const postBody = {
+    name: 'Lesson 3',
+    time: '2018-12-13T18:30:00',
+    description: 'blah, blah'
+  };
+
   before((done) => {
     server = app.listen(4001, done);
   });
+
   after(() => {
     server.close();
   });
-  it('should delete the ID`d timesheet', async () => {
-    const postBody = {
-      name: 'Lesson 3',
-      time: '2018-12-13T18:30:00',
-      description: 'blah, blah'
-    };
 
+  it('should delete the ID`d timesheet', async () => {
     const res1 = await axios.post('http://localhost:4001/createTimesheet', postBody);
     const createdTimesheetId1 = res1.data.id;
 
-    await axios.post(`http://localhost:4001/deleteTimesheet/${createdTimesheetId1}`);
+    await axios.post(`http://localhost:4001/deleteTimesheet/${createdTimesheetId1}`, { password: 'ham sandwich' });
 
     const res2 = await axios.get('http://localhost:4001/');
     const listOfTimesheets = res2.data;
@@ -164,4 +166,20 @@ describe('sending a POST req to /deleteTimesheet/:id', () => {
     const deleted = listOfTimesheets.find((el) => el.id === createdTimesheetId1);
     expect(deleted).to.equal(undefined);
   });
+
+  it('should return an error401 and a still active timesheet when given wrong password', async () => {
+    
+    const res1 = await axios.post('http://localhost:4001/createTimesheet', postBody);
+    const createdTimesheetId = res1.data.id;
+
+    const password = { password: 'cheese sandwich' };
+    const res2 = await axios.post('http://localhost:4001/markTimesheetComplete/invalidId', password, { validateStatus: false });
+    expect(res2.status).to.equal(401);
+    expect(res2.data.error).to.equal('incorrect password');
+
+    const res3 = await axios.get('http://localhost:4001/');
+    const timesheet = res3.data.find((element) => element.id === createdTimesheetId);
+    expect(timesheet.status).to.equal('active');
+  });
+
 });
