@@ -8,13 +8,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
+import ActiveTimesheets from './ActiveTimesheets.jsx'
 
 const styles = {
   padding: '15px',
   margin: '15px'
 };
-
-
 
 class Timesheets extends React.Component {
   constructor(props) {
@@ -26,7 +25,9 @@ class Timesheets extends React.Component {
   }
 
   loadTimesheets () {
-    axios.get('/').then(result => console.log(result));
+    axios.get('/').then(result => {
+      this.setState({ timesheets: result.data });
+    });
   }
 
   render() {
@@ -60,30 +61,7 @@ class Timesheets extends React.Component {
           <Button>Create timesheet</Button>
         </Paper>
         <Paper style={styles}>
-          Active timesheets
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Description</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right">Time</TableCell>
-                <TableCell align="right">Button complete</TableCell>
-                <TableCell align="right">Button delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                </TableCell>
-                <TableCell align="right">u</TableCell>
-                <TableCell align="right">fsfg</TableCell>
-                <TableCell align="right">dfg</TableCell>
-                <TableCell align="right">greg</TableCell>
-                <TableCell align="right">greg</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          <ActiveTimesheets timesheets={ this.state.timesheets } />
         </Paper>
         <Paper style={styles}>
           Completed timesheets
@@ -91,20 +69,20 @@ class Timesheets extends React.Component {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell align="right">Description</TableCell>
-                <TableCell align="right">Date</TableCell>
-                <TableCell align="right">Time</TableCell>
-                <TableCell align="right">Button delete</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Time</TableCell>
+                <TableCell>Button delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell component="th" scope="row">
                 </TableCell>
-                <TableCell align="right">u</TableCell>
-                <TableCell align="right">fsfg</TableCell>
-                <TableCell align="right">dfg</TableCell>
-                <TableCell align="right">
+                <TableCell>u</TableCell>
+                <TableCell>fsfg</TableCell>
+                <TableCell>dfg</TableCell>
+                <TableCell>
                   <Button>Delete</Button>
                 </TableCell>
               </TableRow>
