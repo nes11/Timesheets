@@ -30,6 +30,15 @@ class Timesheets extends React.Component {
     });
   }
 
+  createTimesheet () {
+    const timesheet = {
+      name: 'Lesson 3',
+      time: '2018-12-13T18:30:00',
+      description: 'blah, blah'
+    };
+    axios.post('/createTimesheet', timesheet).then(() => this.loadTimesheets());
+  }
+
   render() {
     return (
       <div>
@@ -58,7 +67,9 @@ class Timesheets extends React.Component {
             margin="normal"
             variant="outlined"
           />
-          <Button>Create timesheet</Button>
+          <Button onClick={() => this.createTimesheet()}>
+            Create timesheet
+          </Button>
         </Paper>
         <Paper style={styles}>
           <ActiveTimesheets timesheets={ this.state.timesheets } />
