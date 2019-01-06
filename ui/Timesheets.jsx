@@ -1,14 +1,14 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
-import ActiveTimesheets from './ActiveTimesheets.jsx'
+import ActiveTimesheets from './ActiveTimesheets.jsx';
+import CreateTimesheet from './CreateTimesheet.jsx';
 
 const styles = {
   padding: '15px',
@@ -29,47 +29,12 @@ class Timesheets extends React.Component {
       this.setState({ timesheets: result.data });
     });
   }
-
-  createTimesheet () {
-    const timesheet = {
-      name: 'Lesson 3',
-      time: '2018-12-13T18:30:00',
-      description: 'blah, blah'
-    };
-    axios.post('/createTimesheet', timesheet).then(() => this.loadTimesheets());
-  }
-
+  
   render() {
     return (
       <div>
         <Paper style={styles}>
-          <TextField
-            id="name"
-            label="Name"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="description"
-            label="Description"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="date"
-            label="Date"
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            id="time"
-            label="Time"
-            margin="normal"
-            variant="outlined"
-          />
-          <Button onClick={() => this.createTimesheet()}>
-            Create timesheet
-          </Button>
+          <CreateTimesheet loadTimesheets={() => this.loadTimesheets()}/>
         </Paper>
         <Paper style={styles}>
           <ActiveTimesheets timesheets={ this.state.timesheets } />
