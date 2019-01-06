@@ -7,13 +7,28 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import axios from 'axios';
 
 const styles = {
   padding: '15px',
   margin: '15px'
 };
 
+
+
 class Timesheets extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      timesheets: []
+    };
+    this.loadTimesheets();
+  }
+
+  loadTimesheets () {
+    axios.get('/').then(result => console.log(result));
+  }
+
   render() {
     return (
       <div>

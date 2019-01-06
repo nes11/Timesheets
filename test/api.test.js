@@ -168,7 +168,6 @@ describe('sending a POST req to /deleteTimesheet/:id', () => {
   });
 
   it('should return an error401 and a still active timesheet when given wrong password', async () => {
-    
     const res1 = await axios.post('http://localhost:4001/createTimesheet', postBody);
     const createdTimesheetId = res1.data.id;
 
