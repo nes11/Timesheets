@@ -29,10 +29,11 @@ class Timesheets extends React.Component {
       this.setState({ timesheets: result.data });
     });
   }
-  
+
   render() {
     return (
       <div>
+        My Timesheet App
         <Paper style={styles}>
           <CreateTimesheet loadTimesheets={() => this.loadTimesheets()}/>
         </Paper>

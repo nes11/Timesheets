@@ -4,6 +4,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 const ActiveTimesheets = ({ timesheets }) => (
   <div>
@@ -15,8 +16,8 @@ const ActiveTimesheets = ({ timesheets }) => (
           <TableCell>Description</TableCell>
           <TableCell>Date</TableCell>
           <TableCell>Time</TableCell>
-          <TableCell>Button complete</TableCell>
-          <TableCell>Button delete</TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -25,9 +26,17 @@ const ActiveTimesheets = ({ timesheets }) => (
             <TableCell>{timesheet.name}</TableCell>
             <TableCell>{timesheet.description}</TableCell>
             <TableCell>{timesheet.time}</TableCell>
-            <TableCell>greg</TableCell>
-            <TableCell>greg</TableCell>
-            <TableCell></TableCell>
+            <TableCell>time</TableCell>
+            <TableCell>
+              <Button variant="outlined">
+              Completed
+              </Button>
+            </TableCell>
+            <TableCell>
+              <Button variant="outlined">
+              Delete
+              </Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
