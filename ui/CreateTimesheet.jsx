@@ -4,14 +4,19 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 
 class CreateTimesheet extends React.Component {
-  
-  createTimesheet() {
-    const timesheet = {
-      name: 'Lesson 3',
-      time: '2018-12-13T18:30:00',
-      description: 'blah, blah'
+  constructor(props) {
+    super(props),
+    this.state = {
+      name: '',
+      description: '',
+      time: ''
     };
-    axios.post('/createTimesheet', timesheet).then(() => this.props.loadActiveTimesheets());
+  }
+
+  createTimesheet() {
+    const timesheet = this.state;
+    axios.post('/createTimesheet', timesheet)
+      .then(() => this.props.loadActiveTimesheets());
   }
 
   render() {
@@ -21,6 +26,8 @@ class CreateTimesheet extends React.Component {
           style={{ margin: '10px' }}
           id="name"
           label="Name"
+          value={this.state.name}
+          onChange={(event) => this.setState({name: event.target.value})}
           margin='normal'
           variant="outlined"
         />
@@ -28,33 +35,20 @@ class CreateTimesheet extends React.Component {
           style={{ margin: '10px' }}
           id="description"
           label="Description"
+          value={this.state.description}
+          onChange={(event) => this.setState({description: event.target.value})}
           margin='normal'
           variant="outlined"
         />
         <TextField
           style={{ margin: '10px' }}
-          id="date"
-          label="Date"
-          margin='normal'
-          type="date"
-          defaultValue="2019-01-01"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          style={{ margin: '10px' }}
-          id="time"
-          label="Time"
-          margin='normal'
-          type="time"
-          defaultValue="07:30"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            step: 300
-          }}
+          id="datetime-local"
+          label="Time & Date"
+          type="datetime-local"
+          value={this.state.time}
+          onChange={(event) => this.setState({time: event.target.value})}
+          InputLabelProps={{ shrink: true }}
+          inputProps={{ step: 900 }}
         />
         <Button 
           variant="outlined" 
