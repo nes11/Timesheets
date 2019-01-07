@@ -7,8 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
-import ActiveTimesheets from './ActiveTimesheets.jsx';
 import CreateTimesheet from './CreateTimesheet.jsx';
+import ActiveTimesheets from './ActiveTimesheets.jsx';
+import CompletedTimesheets from './CompletedTimesheets.jsx';
 
 const styles = {
   padding: '15px',
@@ -41,30 +42,7 @@ class Timesheets extends React.Component {
           <ActiveTimesheets timesheets={ this.state.timesheets } />
         </Paper>
         <Paper style={styles}>
-          Completed timesheets
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Button delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                </TableCell>
-                <TableCell>u</TableCell>
-                <TableCell>fsfg</TableCell>
-                <TableCell>dfg</TableCell>
-                <TableCell>
-                  <Button>Delete</Button>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
+          <CompletedTimesheets completedTimesheets={ this.state.timesheets } />
         </Paper>
       </div>
     );
