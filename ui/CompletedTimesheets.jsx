@@ -6,7 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 
-const CompletedTimesheets = ({ completedTimesheets }) => (
+const CompletedTimesheets = ({ timesheets }) => (
   <div>
     Completed timesheets
     <Table>
@@ -20,19 +20,21 @@ const CompletedTimesheets = ({ completedTimesheets }) => (
         </TableRow>
       </TableHead>
       <TableBody>
-        {completedTimesheets.map(timesheet => (
-          <TableRow key={ timesheet.id }>
-            <TableCell>{timesheet.name}</TableCell>
-            <TableCell>{timesheet.description}</TableCell>
-            <TableCell>{timesheet.time}</TableCell>
-            <TableCell>time</TableCell>
-            <TableCell>
-              <Button variant="outlined">
-              Delete
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
+        {timesheets
+          .filter((el) => el.status === 'completed')
+          .map(timesheet => (
+            <TableRow key={timesheet.id}>
+              <TableCell>{timesheet.name}</TableCell>
+              <TableCell>{timesheet.description}</TableCell>
+              <TableCell>{timesheet.time}</TableCell>
+              <TableCell>time</TableCell>
+              <TableCell>
+                <Button variant="outlined">
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   </div>

@@ -21,24 +21,26 @@ const ActiveTimesheets = ({ timesheets }) => (
         </TableRow>
       </TableHead>
       <TableBody>
-        {timesheets.map(timesheet => (
-          <TableRow key={ timesheet.id }>
-            <TableCell>{timesheet.name}</TableCell>
-            <TableCell>{timesheet.description}</TableCell>
-            <TableCell>{timesheet.time}</TableCell>
-            <TableCell>time</TableCell>
-            <TableCell>
-              <Button variant="outlined">
-              Completed
-              </Button>
-            </TableCell>
-            <TableCell>
-              <Button variant="outlined">
-              Delete
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
+        {timesheets
+          .filter((el) => el.status === 'active')
+          .map(timesheet => (
+            <TableRow key={timesheet.id}>
+              <TableCell>{timesheet.name}</TableCell>
+              <TableCell>{timesheet.description}</TableCell>
+              <TableCell>{timesheet.time}</TableCell>
+              <TableCell>time</TableCell>
+              <TableCell>
+                <Button variant="outlined">
+                  Completed
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button variant="outlined">
+                  Delete
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   </div>

@@ -11,7 +11,7 @@ class CreateTimesheet extends React.Component {
       time: '2018-12-13T18:30:00',
       description: 'blah, blah'
     };
-    axios.post('/createTimesheet', timesheet).then(() => this.props.loadTimesheets());
+    axios.post('/createTimesheet', timesheet).then(() => this.props.loadActiveTimesheets());
   }
 
   render() {

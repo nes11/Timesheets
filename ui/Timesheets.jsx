@@ -36,13 +36,13 @@ class Timesheets extends React.Component {
       <div>
         My Timesheet App
         <Paper style={styles}>
-          <CreateTimesheet loadTimesheets={() => this.loadTimesheets()}/>
+          <CreateTimesheet loadActiveTimesheets={() => this.loadTimesheets()}/>
         </Paper>
         <Paper style={styles}>
           <ActiveTimesheets timesheets={ this.state.timesheets } />
         </Paper>
         <Paper style={styles}>
-          <CompletedTimesheets completedTimesheets={ this.state.timesheets } />
+          <CompletedTimesheets timesheets={ this.state.timesheets } />
         </Paper>
       </div>
     );
