@@ -1,11 +1,5 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import CreateTimesheet from './CreateTimesheet.jsx';
 import ActiveTimesheets from './ActiveTimesheets.jsx';
@@ -36,10 +30,10 @@ class Timesheets extends React.Component {
       <div>
         My Timesheet App
         <Paper style={styles}>
-          <CreateTimesheet loadActiveTimesheets={() => this.loadTimesheets()}/>
+          <CreateTimesheet loadTimesheets={() => this.loadTimesheets()}/>
         </Paper>
         <Paper style={styles}>
-          <ActiveTimesheets timesheets={ this.state.timesheets } />
+          <ActiveTimesheets timesheets={ this.state.timesheets } loadTimesheets={() => this.loadTimesheets()} />
         </Paper>
         <Paper style={styles}>
           <CompletedTimesheets timesheets={ this.state.timesheets } />

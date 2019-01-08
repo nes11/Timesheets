@@ -5,8 +5,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
-const ActiveTimesheets = ({ timesheets }) => (
+const ActiveTimesheets = ({ timesheets, loadTimesheets }) => (
   <div>
     Active timesheets
     <Table>
@@ -30,7 +31,10 @@ const ActiveTimesheets = ({ timesheets }) => (
               <TableCell>{timesheet.time}</TableCell>
               <TableCell>time</TableCell>
               <TableCell>
-                <Button variant="outlined">
+                <Button variant="outlined" onClick={ () => {
+                  axios.post(`/markTimesheetComplete/${timesheet.id}`, {password: 'ham sandwich'})
+                    .then(() => loadTimesheets());
+                }}>
                   Completed
                 </Button>
               </TableCell>
