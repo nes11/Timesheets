@@ -5,7 +5,7 @@ import axios from 'axios';
 
 class CreateTimesheet extends React.Component {
   constructor(props) {
-    super(props),
+    super(props);
     this.state = {
       name: '',
       description: '',
@@ -27,7 +27,7 @@ class CreateTimesheet extends React.Component {
           id="name"
           label="Name"
           value={this.state.name}
-          onChange={(event) => this.setState({name: event.target.value})}
+          onChange={(event) => this.setState({ name: event.target.value })}
           margin='normal'
           variant="outlined"
         />
@@ -36,7 +36,7 @@ class CreateTimesheet extends React.Component {
           id="description"
           label="Description"
           value={this.state.description}
-          onChange={(event) => this.setState({description: event.target.value})}
+          onChange={(event) => this.setState({ description: event.target.value })}
           margin='normal'
           variant="outlined"
         />
@@ -46,12 +46,12 @@ class CreateTimesheet extends React.Component {
           label="Time & Date"
           type="datetime-local"
           value={this.state.time}
-          onChange={(event) => this.setState({time: event.target.value})}
+          onChange={(event) => this.setState({ time: event.target.value })}
           InputLabelProps={{ shrink: true }}
           inputProps={{ step: 900 }}
         />
-        <Button 
-          variant="outlined" 
+        <Button
+          variant="outlined"
           onClick={() => this.createTimesheet()}>
           Create timesheet
         </Button>

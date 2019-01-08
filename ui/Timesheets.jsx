@@ -33,10 +33,16 @@ class Timesheets extends React.Component {
           <CreateTimesheet loadTimesheets={() => this.loadTimesheets()}/>
         </Paper>
         <Paper style={styles}>
-          <ActiveTimesheets timesheets={ this.state.timesheets } loadTimesheets={() => this.loadTimesheets()} />
+          <ActiveTimesheets 
+            timesheets={ this.state.timesheets } 
+            loadTimesheets={() => this.loadTimesheets()} 
+          />
         </Paper>
         <Paper style={styles}>
-          <CompletedTimesheets timesheets={ this.state.timesheets } />
+          <CompletedTimesheets 
+            timesheets={ this.state.timesheets } 
+            loadTimesheets={() => this.loadTimesheets()}
+          />
         </Paper>
       </div>
     );

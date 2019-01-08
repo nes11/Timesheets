@@ -8,17 +8,18 @@ module.exports = {
     "plugins": [
         "react"
     ],
-    "extends": "eslint:recommended",
+    "extends": ['plugin:react/recommended'],
     "parserOptions": {
-      "ecmaVersion": 2018,
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "sourceType": "module"
+        "ecmaVersion": 2018,
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "sourceType": "module"
     },
     "rules": {
-      "no-console": [2, { "allow": ["info", "error"] }],
+        "no-console": [2, { "allow": ["info", "error"] }],
         "react/jsx-uses-react": 1,
+        "react/prop-types": 0,
         "indent": [
             "error",
             2

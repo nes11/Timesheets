@@ -14,6 +14,11 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
       .then(() => loadTimesheets());
   };
 
+  const deleteTimesheets = (timesheetId) => {
+    axios.post(`/deleteTimesheet/${timesheetId}`, { password: 'ham sandwich' })
+      .then(() => loadTimesheets());
+  };
+
   return (
     <div>
       Active timesheets
@@ -44,7 +49,10 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
                   </Button>
                 </TableCell>
                 <TableCell>
-                  <Button variant="outlined">
+                  <Button 
+                    variant="outlined"
+                    onClick={() => deleteTimesheets(timesheet.id)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
