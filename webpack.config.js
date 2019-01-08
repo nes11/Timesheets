@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'none',
+  mode: 'development',
+  devtool: 'source-map',
   entry: './ui/index.jsx',
   output: {
     path: path.resolve(__dirname, 'assets'),
