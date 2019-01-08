@@ -6,13 +6,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import moment from 'moment';
 
 const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
   const markTimesheetComplete = (timesheetId) => {
     axios.post(`/markTimesheetComplete/${timesheetId}`, { password: 'ham sandwich' })
       .then(() => loadTimesheets());
   };
-  
+
   return (
     <div>
       Active timesheets
@@ -22,7 +23,6 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
             <TableCell>Name</TableCell>
             <TableCell>Description</TableCell>
             <TableCell>Date</TableCell>
-            <TableCell>Time</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
@@ -34,8 +34,7 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
               <TableRow key={timesheet.id}>
                 <TableCell>{timesheet.name}</TableCell>
                 <TableCell>{timesheet.description}</TableCell>
-                <TableCell>{timesheet.time}</TableCell>
-                <TableCell>time</TableCell>
+                <TableCell>{moment(timesheet.time).format('dddd, DD MMM YYYY - HH:mm')}</TableCell>
                 <TableCell>
                   <Button 
                     variant="outlined" 

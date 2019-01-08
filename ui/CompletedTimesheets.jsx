@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import moment from 'moment';
 
 const CompletedTimesheets = ({ timesheets }) => (
   <div>
@@ -15,7 +16,6 @@ const CompletedTimesheets = ({ timesheets }) => (
           <TableCell>Name</TableCell>
           <TableCell>Description</TableCell>
           <TableCell>Date</TableCell>
-          <TableCell>Time</TableCell>
           <TableCell></TableCell>
         </TableRow>
       </TableHead>
@@ -26,8 +26,7 @@ const CompletedTimesheets = ({ timesheets }) => (
             <TableRow key={timesheet.id}>
               <TableCell>{timesheet.name}</TableCell>
               <TableCell>{timesheet.description}</TableCell>
-              <TableCell>{timesheet.time}</TableCell>
-              <TableCell>time</TableCell>
+              <TableCell>{moment(timesheet.time).format('dddd, DD MMM YYYY - HH:mm')}</TableCell>
               <TableCell>
                 <Button variant="outlined">
                   Delete
