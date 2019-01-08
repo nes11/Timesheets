@@ -15,7 +15,6 @@ class CreateTimesheet extends React.Component {
 
   createTimesheet() {
     const timesheet = this.state;
-    console.log(this.state.time);
     axios.post('/createTimesheet', timesheet)
       .then(() => this.props.loadTimesheets());
   }
