@@ -1,5 +1,5 @@
 import React from 'react';
-import Timesheets from './Timesheets.jsx'
+import Timesheets from './Timesheets.jsx';
 
 const App = () => (
   <Timesheets />

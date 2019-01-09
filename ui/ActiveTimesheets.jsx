@@ -9,13 +9,13 @@ import moment from 'moment';
 import FormDialog from './Dialog.jsx'; 
 
 const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
-  const markTimesheetComplete = (timesheetId) => {
-    axios.post(`/markTimesheetComplete/${timesheetId}`, { password: 'ham sandwich' })
+  const markTimesheetComplete = (timesheetId, password) => {
+    axios.post(`/markTimesheetComplete/${timesheetId}`, { password })
       .then(() => loadTimesheets());
   };
 
-  const deleteTimesheets = (timesheetId) => {
-    axios.post(`/deleteTimesheet/${timesheetId}`, { password: 'ham sandwich' })
+  const deleteTimesheets = (timesheetId, password) => {
+    axios.post(`/deleteTimesheet/${timesheetId}`, { password })
       .then(() => loadTimesheets());
   };
 

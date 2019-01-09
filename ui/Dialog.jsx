@@ -60,7 +60,7 @@ class FormDialog extends React.Component {
             </Button>
             <Button 
               onClick={() => {
-                this.props.zhuLiDoTheThing(this.props.timesheetId);
+                this.props.zhuLiDoTheThing(this.props.timesheetId, this.state.password);
                 this.handleClose();
               }}
               color="primary">

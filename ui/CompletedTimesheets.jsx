@@ -9,8 +9,8 @@ import moment from 'moment';
 import axios from 'axios';
 
 const CompletedTimesheets = ({ timesheets, loadTimesheets }) => {
-  const deleteTimesheets = (timesheetId) => {
-    axios.post(`/deleteTimesheet/${timesheetId}`, { password: 'ham sandwich' })
+  const deleteTimesheets = (timesheetId, password) => {
+    axios.post(`/deleteTimesheet/${timesheetId}`, { password })
       .then(() => loadTimesheets());
   };
 
