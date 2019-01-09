@@ -4,7 +4,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import moment from 'moment';
 import FormDialog from './Dialog.jsx'; 
@@ -42,15 +41,18 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
                 <TableCell>{timesheet.description}</TableCell>
                 <TableCell>{moment(timesheet.time).format('dddd, DD MMM YYYY - HH:mm')}</TableCell>
                 <TableCell>
-                  <FormDialog />
+                  <FormDialog 
+                    timesheetId={timesheet.id} 
+                    loadTimesheets={loadTimesheets}
+                    zhuLiDoTheThing={markTimesheetComplete}
+                  />
                 </TableCell>
                 <TableCell>
-                  <Button
-                    variant="outlined"
-                    onClick={() => deleteTimesheets(timesheet.id)}
-                  >
-                    Delete
-                  </Button>
+                  <FormDialog
+                    timesheetId={timesheet.id} 
+                    loadTimesheets={loadTimesheets}
+                    zhuLiDoTheThing={deleteTimesheets}
+                  />
                 </TableCell>
               </TableRow>
             ))}
