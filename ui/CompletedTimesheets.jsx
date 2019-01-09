@@ -36,6 +36,7 @@ const CompletedTimesheets = ({ timesheets, loadTimesheets }) => {
                 <TableCell>{moment(timesheet.time).format('dddd, DD MMM YYYY - HH:mm')}</TableCell>
                 <TableCell>
                   <FormDialog 
+                    label={'Delete'}
                     timesheetId={timesheet.id} 
                     loadTimesheets={loadTimesheets}
                     zhuLiDoTheThing={deleteTimesheets}

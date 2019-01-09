@@ -41,7 +41,8 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
                 <TableCell>{timesheet.description}</TableCell>
                 <TableCell>{moment(timesheet.time).format('dddd, DD MMM YYYY - HH:mm')}</TableCell>
                 <TableCell>
-                  <FormDialog 
+                  <FormDialog
+                    label={'Completed'}
                     timesheetId={timesheet.id} 
                     loadTimesheets={loadTimesheets}
                     zhuLiDoTheThing={markTimesheetComplete}
@@ -49,6 +50,7 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
                 </TableCell>
                 <TableCell>
                   <FormDialog
+                    label={'Delete'}
                     timesheetId={timesheet.id} 
                     loadTimesheets={loadTimesheets}
                     zhuLiDoTheThing={deleteTimesheets}

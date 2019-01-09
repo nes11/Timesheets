@@ -31,9 +31,9 @@ class FormDialog extends React.Component {
         <Button 
           variant="outlined" 
           color="primary" 
-          onClick={() => this.handleClickOpen()} 
+          onClick={() => this.handleClickOpen()}
         >
-          Completed
+          {this.props.label}
         </Button>
         <Dialog
           open={this.state.open}
