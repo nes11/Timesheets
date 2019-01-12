@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
-  entry: './ui/index.jsx',
+  entry: ['@babel/polyfill', './ui/index.jsx'],
   output: {
     path: path.resolve(__dirname, 'assets'),
     filename: 'bundle.js',
