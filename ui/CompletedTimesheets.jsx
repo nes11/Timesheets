@@ -7,16 +7,20 @@ import TableRow from '@material-ui/core/TableRow';
 import FormDialog from './Dialog.jsx';
 import moment from 'moment';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography'
+
 
 const CompletedTimesheets = ({ timesheets, loadTimesheets }) => {
   const deleteTimesheets = (timesheetId, password) => {
-    axios.post(`/deleteTimesheet/${timesheetId}`, { password })
+    return axios.post(`/deleteTimesheet/${timesheetId}`, { password })
       .then(() => loadTimesheets());
   };
 
   return (
     <div>
-      Completed timesheets
+      <Typography style={ {color: 'hsla(204, 64%, 40%,1)'} }>
+      Completed timesheets      
+      </Typography>
       <Table>
         <TableHead>
           <TableRow>
@@ -28,7 +32,7 @@ const CompletedTimesheets = ({ timesheets, loadTimesheets }) => {
         </TableHead>
         <TableBody>
           {timesheets
-            .filter((el) => el.status === 'completed')
+            .filter((el) => el.status === 'completed') 
             .map(timesheet => (
               <TableRow key={timesheet.id}>
                 <TableCell>{timesheet.name}</TableCell>

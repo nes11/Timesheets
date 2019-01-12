@@ -6,7 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios';
 
 class FormDialog extends React.Component {
   constructor(props) {
@@ -14,6 +13,8 @@ class FormDialog extends React.Component {
     this.state = {
       open: false,
       password: '',
+      error: false,
+      passwordValid: 'Password'
     };
   }
 
@@ -45,9 +46,10 @@ class FormDialog extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              label="Password"
+              label={this.state.passwordValid}
               type="password"
               fullWidth
+              error={this.state.error}
               value={this.state.password}
               onChange={(event) => this.setState({ password: event.target.value })}
             />
@@ -59,11 +61,14 @@ class FormDialog extends React.Component {
               Cancel
             </Button>
             <Button 
-              onClick={() => {
-                this.props.zhuLiDoTheThing(this.props.timesheetId, this.state.password);
-                this.handleClose();
+              onClick={async () => {
+                await this.props.zhuLiDoTheThing(this.props.timesheetId, this.state.password)
+                  .then(() => this.handleClose())
+                  .catch(() => this.setState({ error: true, passwordValid: 'Incorrect password' }));
+                
               }}
-              color="primary">
+              color="primary"
+            >
               Submit
             </Button>
           </DialogActions>

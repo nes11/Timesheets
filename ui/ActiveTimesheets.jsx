@@ -6,36 +6,50 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 import moment from 'moment';
-import FormDialog from './Dialog.jsx'; 
+import FormDialog from './Dialog.jsx';
+import Typography from '@material-ui/core/Typography';
+import sortBy from 'lodash/sortBy';
 
-const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
-  const markTimesheetComplete = (timesheetId, password) => {
-    axios.post(`/markTimesheetComplete/${timesheetId}`, { password })
-      .then(() => loadTimesheets());
-  };
+class ActiveTimesheets extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      header: 'name'
+    };
 
-  const deleteTimesheets = (timesheetId, password) => {
-    axios.post(`/deleteTimesheet/${timesheetId}`, { password })
-      .then(() => loadTimesheets());
-  };
+  }
+  markTimesheetComplete(timesheetId, password) {
+    return axios.post(`/markTimesheetComplete/${timesheetId}`, { password })
+      .then(() => this.props.loadTimesheets());
+  }
 
-  return (
-    <div>
-      Active timesheets
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {timesheets
-            .filter((el) => el.status === 'active')
-            .map(timesheet => (
+  deleteTimesheets(timesheetId, password) {
+    return axios.post(`/deleteTimesheet/${timesheetId}`, { password })
+      .then(() => this.props.loadTimesheets());
+  }
+
+  render() {
+    const sortedTimesheets = sortBy(
+      this.props.timesheets.filter((el) => el.status === 'active'),
+      this.state.header,
+    );
+    return (
+      <div>
+        <Typography style={{ color: 'hsla(204, 64%, 40%,1)' }} >
+          Active timesheets
+        </Typography>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell onClick={(event) => this.setState({ header: 'name' })}>Name</TableCell>
+              <TableCell onClick={(event) => this.setState({ header: 'description' })}>Description</TableCell>
+              <TableCell onClick={(event) => this.setState({ header: 'time' })}>Date</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sortedTimesheets.map(timesheet => (
               <TableRow key={timesheet.id}>
                 <TableCell>{timesheet.name}</TableCell>
                 <TableCell>{timesheet.description}</TableCell>
@@ -43,25 +57,25 @@ const ActiveTimesheets = ({ timesheets, loadTimesheets }) => {
                 <TableCell>
                   <FormDialog
                     label={'Completed'}
-                    timesheetId={timesheet.id} 
-                    loadTimesheets={loadTimesheets}
-                    zhuLiDoTheThing={markTimesheetComplete}
+                    timesheetId={timesheet.id}
+                    loadTimesheets={this.props.loadTimesheets}
+                    zhuLiDoTheThing={this.markTimesheetComplete}
                   />
                 </TableCell>
                 <TableCell>
                   <FormDialog
                     label={'Delete'}
-                    timesheetId={timesheet.id} 
-                    loadTimesheets={loadTimesheets}
-                    zhuLiDoTheThing={deleteTimesheets}
+                    timesheetId={timesheet.id}
+                    loadTimesheets={this.props.loadTimesheets}
+                    zhuLiDoTheThing={this.deleteTimesheets}
                   />
                 </TableCell>
               </TableRow>
             ))}
-        </TableBody>
-      </Table>
-    </div>
-  );
-};
-
+          </TableBody>
+        </Table>
+      </div>
+    );
+  };
+}
 export default ActiveTimesheets;

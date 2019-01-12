@@ -52,7 +52,9 @@ class CreateTimesheet extends React.Component {
         />
         <Button
           variant="outlined"
-          onClick={() => this.createTimesheet()}>
+          style={{ margin: '10px' }}
+          onClick={() => this.createTimesheet()}
+        >
           Create timesheet
         </Button>
       </div>
