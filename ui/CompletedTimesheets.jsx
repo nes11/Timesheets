@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import FormDialog from './Dialog.jsx';
 import moment from 'moment';
 import axios from 'axios';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 
 
 const CompletedTimesheets = ({ timesheets, loadTimesheets }) => {

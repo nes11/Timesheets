@@ -1,6 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography'
+import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import CreateTimesheet from './CreateTimesheet.jsx';
 import ActiveTimesheets from './ActiveTimesheets.jsx';
