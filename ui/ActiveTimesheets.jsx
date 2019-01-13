@@ -58,16 +58,14 @@ class ActiveTimesheets extends React.Component {
                   <FormDialog
                     label={'Completed'}
                     timesheetId={timesheet.id}
-                    loadTimesheets={this.props.loadTimesheets}
-                    zhuLiDoTheThing={this.markTimesheetComplete}
+                    zhuLiDoTheThing={this.markTimesheetComplete.bind(this)}
                   />
                 </TableCell>
                 <TableCell>
                   <FormDialog
                     label={'Delete'}
                     timesheetId={timesheet.id}
-                    loadTimesheets={this.props.loadTimesheets}
-                    zhuLiDoTheThing={this.deleteTimesheets}
+                    zhuLiDoTheThing={this.deleteTimesheets.bind(this)}
                   />
                 </TableCell>
               </TableRow>

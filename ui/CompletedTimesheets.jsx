@@ -41,8 +41,7 @@ const CompletedTimesheets = ({ timesheets, loadTimesheets }) => {
                 <TableCell>
                   <FormDialog 
                     label={'Delete'}
-                    timesheetId={timesheet.id} 
-                    loadTimesheets={loadTimesheets}
+                    timesheetId={timesheet.id}
                     zhuLiDoTheThing={deleteTimesheets}
                   />
                 </TableCell>
