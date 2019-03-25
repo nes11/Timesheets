@@ -56,17 +56,19 @@ class ActiveTimesheets extends React.Component {
                 <TableCell>{moment(timesheet.time).format('dddd, DD MMM YYYY - HH:mm')}</TableCell>
                 <TableCell>
                   <FormDialog
-                    label={'Completed'}
                     timesheetId={timesheet.id}
                     zhuLiDoTheThing={this.markTimesheetComplete.bind(this)}
-                  />
+                  >
+                  Completed
+                  </FormDialog>
                 </TableCell>
                 <TableCell>
                   <FormDialog
-                    label={'Delete'}
                     timesheetId={timesheet.id}
                     zhuLiDoTheThing={this.deleteTimesheets.bind(this)}
-                  />
+                  >
+                  Delete
+                  </FormDialog>
                 </TableCell>
               </TableRow>
             ))}

@@ -18,23 +18,23 @@ class FormDialog extends React.Component {
     };
   }
 
-  handleClickOpen () {
+  handleClickOpen() {
     this.setState({ open: true });
   };
 
-  handleClose () {
+  handleClose() {
     this.setState({ open: false });
   };
 
   render() {
     return (
       <div>
-        <Button 
-          variant="outlined" 
-          color="primary" 
+        <Button
+          variant="outlined"
+          color="primary"
           onClick={() => this.handleClickOpen()}
         >
-          {this.props.label}
+          {this.props.children}
         </Button>
         <Dialog
           open={this.state.open}
@@ -42,7 +42,9 @@ class FormDialog extends React.Component {
         >
           <DialogTitle>Password</DialogTitle>
           <DialogContent>
-            <DialogContentText>A password is required for this action.</DialogContentText>
+            <DialogContentText>
+              A password is required for this action.
+            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
@@ -55,17 +57,17 @@ class FormDialog extends React.Component {
             />
           </DialogContent>
           <DialogActions>
-            <Button 
-              onClick={() => this.handleClose()} 
+            <Button
+              onClick={() => this.handleClose()}
               color="primary">
               Cancel
             </Button>
-            <Button 
+            <Button
               onClick={async () => {
                 await this.props.zhuLiDoTheThing(this.props.timesheetId, this.state.password)
                   .then(() => this.handleClose())
                   .catch(() => this.setState({ error: true, passwordValid: 'Incorrect password' }));
-                
+
               }}
               color="primary"
             >

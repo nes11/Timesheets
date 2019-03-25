@@ -59,6 +59,5 @@ class Timesheets extends React.Component {
     );
   }
 }
-// value={this.state.name}
-// onChange={this.handleChange('name')}
+
 export default Timesheets;
