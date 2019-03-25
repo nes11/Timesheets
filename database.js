@@ -49,7 +49,7 @@ const completeTimesheetById = async (timesheetId) => {
     const result = await myTimesheetCollection.findOneAndUpdate(
       { id: timesheetId },
       { $set: { status: 'completed' } },
-      {returnOriginal: false}
+      { returnOriginal: false }
     );
     client.close();
     return result.value;
